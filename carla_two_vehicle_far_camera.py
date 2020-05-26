@@ -40,6 +40,8 @@ class CarlaMultiviewRunner():
 
         self.vehicle_blueprint_number = blueprint_num
         self.base_path = "_carla_two_vehicles_far_camera"
+        self.base_path = "_carla_two_vehicles_far_camera_random_cams"
+        self.randomize_each_camera = True
 
         # To test retreivals, we will have single color for each vehicle across spawns.
         self.vehicle_to_color_file = "vehicle_to_color.p"
@@ -420,14 +422,21 @@ class CarlaMultiviewRunner():
         print("xdiff and ydiff are: ", xdiff, ydiff)
 
         # Place the front camera first
-        radius = 12.5
+        if self.randomize_each_camera:
+            radius = np.random.randint(8,13)
+        else:
+            radius = 12.5
         self.positions.append([radius, -ydiff, 1])
         self.rotations.append([0, -180, 0])
         self.num_camRs = 1 # Number of camR candidates
         
         # Elevated cameras
-        radius = 11
+        radius_orig = 10
         for yaw in range(40, 320, 35):
+            if self.randomize_each_camera:
+                radius = radius_orig + np.random.randint(-4,4)
+            else:
+                radius = radius_orig
             self.num_camRs += 1
             yaw_rads = np.radians(yaw)
             zcoord = 5.5
@@ -438,8 +447,12 @@ class CarlaMultiviewRunner():
             self.rotations.append([-0, -yaw, 0])
         
         # More Elevated cameras
-        radius = 8
+        radius_orig = 8
         for yaw in range(40, 320, 35):
+            if self.randomize_each_camera:
+                radius = radius_orig + np.random.randint(-2,4)
+            else:
+                radius = radius_orig
             yaw_rads = np.radians(yaw)
             zcoord = 6.5
             xcoord = -radius*np.cos(yaw_rads) - xdiff
@@ -449,7 +462,10 @@ class CarlaMultiviewRunner():
             self.rotations.append([-40, -yaw, 0])
 
         # Directly overhead camera
-        self.positions.append([-xdiff, -ydiff, 8])
+        overhead_z = 8
+        if self.randomize_each_camera:
+            overhead_z = np.random.randint(6,10)
+        self.positions.append([-xdiff, -ydiff, overhead_z])
         self.rotations.append([-90, 0, 0])
         
         self.num_locations_per_vehicle = len(self.positions) # Number of (single type) cameras on each vehicle
