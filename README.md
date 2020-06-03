@@ -15,3 +15,5 @@ Single vehicle far cam - carla_multiprocess_unique_far_camera.py
 Two vehicle close camera - carla_multiprocess_two_unique.py
 
 Two vehicle far camera - carla_multiprocess_two_vehicle_far_camera.py
+
+Multi vehicle scenes - carla_multiprocess_n_vehicles.py
