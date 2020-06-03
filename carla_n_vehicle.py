@@ -39,7 +39,7 @@ class CarlaMultiviewRunner():
         logging.basicConfig(format='%(levelname)s: %(message)s', level=logging.INFO)
 
         self.vehicle_blueprint_number = blueprint_num
-        self.base_path = "_carla_n_vehicles"
+        self.base_path = "_carla_n_vehicles_B"
         self.randomize_each_camera = True
 
         # To test retreivals, we will have single color for each vehicle across spawns.
