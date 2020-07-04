@@ -39,7 +39,7 @@ class CarlaMultiviewRunner():
         logging.basicConfig(format='%(levelname)s: %(message)s', level=logging.INFO)
 
         self.vehicle_blueprint_number = blueprint_num
-        self.base_path = "_carla_n_vehicles_B"
+        self.base_path = "_carla_1_vehicles_B"
         self.randomize_each_camera = True
 
         # To test retreivals, we will have single color for each vehicle across spawns.
@@ -49,8 +49,8 @@ class CarlaMultiviewRunner():
         else:
             self.vehicle_to_color_map = {}
 
-        self.min_vehicles = 3
-        self.max_vehicles = 5
+        self.min_vehicles = 1
+        self.max_vehicles = 1
         self.initial_spawn = self.max_vehicles + 1
 
         self.host = "127.0.0.1"
@@ -397,7 +397,10 @@ class CarlaMultiviewRunner():
 
         
         # Attach all the sensors to the vehicle
-        self.get_mean_position_rotation(spawn_points[0], selected_transforms[0])
+        if len(selected_transforms)>0:
+            self.get_mean_position_rotation(spawn_points[0], selected_transforms[0])
+        else:
+            self.get_mean_position_rotation(spawn_points[0], spawn_points[0])
         is_camR_pos = True
         for position, rotation in zip(self.positions, self.rotations):
             for sensor in self.sensor_names:
@@ -442,7 +445,7 @@ class CarlaMultiviewRunner():
         self.num_camRs = 1 # Number of camR candidates
         
         # Elevated cameras
-        radius_orig = 12
+        radius_orig = 11
         for yaw in range(40, 320, 35):
             if self.randomize_each_camera:
                 radius = radius_orig + np.random.randint(-4,4)

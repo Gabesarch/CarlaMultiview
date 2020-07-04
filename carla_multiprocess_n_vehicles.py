@@ -7,7 +7,7 @@ carla_sim_args = shlex.split(carla_sim)
 
 cnt = 0
 for i in range(26):
-    for j in range(2):
+    for j in range(5):
         p1 = Popen(carla_sim_args, stdout=PIPE, stderr=PIPE)
         time.sleep(4)
         print("Number of times carla simulator started: ", cnt)
