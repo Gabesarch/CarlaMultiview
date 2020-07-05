@@ -17,3 +17,5 @@ Two vehicle close camera - carla_multiprocess_two_unique.py
 Two vehicle far camera - carla_multiprocess_two_vehicle_far_camera.py
 
 Multi vehicle scenes - carla_multiprocess_n_vehicles.py
+
+Multi vehicle scenes with stereo cameras - carla_multiprocess_n_vehicles_depthpred.py
