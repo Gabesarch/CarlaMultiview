@@ -50,7 +50,8 @@ class CarlaMultiviewRunner():
             self.vehicle_to_color_map = {}
 
         self.min_vehicles = 1
-        self.max_vehicles = 1
+        self.max_vehicles = 2
+        self.maximum_spawn_distance = 17
         self.initial_spawn = self.max_vehicles + 1
 
         self.host = "127.0.0.1"
@@ -71,8 +72,8 @@ class CarlaMultiviewRunner():
             self.camR_Zrange = [1, 3]
 
         # Camera specific params
-        self.image_size_x = 256
-        self.image_size_y = 256
+        self.image_size_x = 512
+        self.image_size_y = 512
         self.fov = 110
         self.focal = self.image_size_x/(2.0*np.tan(self.fov*np.pi/360.0))
         self.fps = 10 
@@ -351,7 +352,7 @@ class CarlaMultiviewRunner():
         # Spawn the rest of the vehicles closest to first vehicle.
         closest_transform = None
         mindist = 100000
-        allowed_dist = 17
+        allowed_dist = self.maximum_spawn_distance
         allowed_second_spawn = []
         
         number_of_spawn_points = len(spawn_points)
@@ -363,7 +364,7 @@ class CarlaMultiviewRunner():
         if len(allowed_second_spawn) == 0:
             print("Min distance is greater than allowed. Exitting")
             exit(1)
-        num_cars_to_spawn = min(np.random.randint(self.min_vehicles, self.max_vehicles+1), len(allowed_second_spawn))
+        num_cars_to_spawn = min(np.random.randint(self.min_vehicles-1, self.max_vehicles), len(allowed_second_spawn))
         print("We will be spawining %d cars" %num_cars_to_spawn)
         random.shuffle(allowed_second_spawn)
 
