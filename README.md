@@ -1,5 +1,16 @@
 # CarlaMultiview
 
+Requires carla97
+
+Clone this repo in <path_to_carla_97>/PythonAPI/examples
+
+cd <path_to_carla_97>/PythonAPI/examples/CarlaMultiview
+
+Make sure this egg file path is correct with respect to the CarlaMultiview repo: ../../carla/dist/carla-*%d.%d-%s.egg. If not, change it in the python file.
+
+Run any script.
+
+
 Possible issues:
 
 If you get b'' in output, then that means there is a carla server already running that you need to kill
